@@ -5,17 +5,21 @@ var openButton = document.getElementById("openButton");
 var textaera = document.getElementById("textarea");
 var bar = document.getElementById("bar");
 var text;
+// Save function
+function saveText() {
+  text = textaera.value;
+  var blob = new Blob([text], { type: "text/plain" });
+  var url = URL.createObjectURL(blob);
+  var link = document.createElement("a");
+  link.href = url;
+  link.download = "note.txt";
+  document.body.appendChild(link);
+  link.click();
+  URL.revokeObjectURL(url);
+}
 // Save button
 saveButton.addEventListener("click", function() {
-    text = textaera.value;
-    var blob = new Blob([text], { type: "text/plain" });
-    var url = URL.createObjectURL(blob);
-    var link = document.createElement("a");
-    link.href = url;
-    link.download = "note.txt";
-    document.body.appendChild(link);
-    link.click();
-    URL.revokeObjectURL(url);
+  saveText();
 });
 // Read button
 function readFile(input) {
@@ -40,4 +44,11 @@ textarea.addEventListener('blur', () => {
 
 bar.addEventListener('mouseover', function() {
   document.body.style.cursor = 'default';
+});
+// Save document when CTRL+S is pressed
+document.addEventListener('keydown', (event) => {
+  if (event.ctrlKey && event.key === 's') {
+      event.preventDefault();
+      saveText();
+  }
 });
