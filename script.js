@@ -1,8 +1,11 @@
+// Store the elements in variables
+const textarea = document.querySelector('textarea');
 var saveButton = document.getElementById("saveButton");
 var openButton = document.getElementById("openButton");
 var textaera = document.getElementById("textarea");
+var bar = document.getElementById("bar");
 var text;
-
+// Save button
 saveButton.addEventListener("click", function() {
     text = textaera.value;
     var blob = new Blob([text], { type: "text/plain" });
@@ -14,7 +17,7 @@ saveButton.addEventListener("click", function() {
     link.click();
     URL.revokeObjectURL(url);
 });
-
+// Read button
 function readFile(input) {
     let file = input.files[0];
     let reader = new FileReader();
@@ -26,3 +29,15 @@ function readFile(input) {
   
     reader.readAsText(file);
 }
+// Hide cursor while typing
+textarea.addEventListener('keydown', () => {
+  document.body.style.cursor = 'none';
+});
+
+textarea.addEventListener('blur', () => {
+  document.body.style.cursor = 'default';
+});
+
+bar.addEventListener('mouseover', function() {
+  document.body.style.cursor = 'default';
+});
