@@ -8,9 +8,6 @@ textarea {
     vertical-align: top;
     overflow-wrap: break-word;
 }
-mark {
-    background-color: yellow;
-}
 .dotSeparator {
     background-color: rgb(32, 32, 32);
     height: 10px;
