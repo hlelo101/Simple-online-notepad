@@ -4,6 +4,7 @@ var saveButton = document.getElementById("saveButton");
 var openButton = document.getElementById("openButton");
 var textaera = document.getElementById("textarea");
 var bar = document.getElementById("bar");
+var searchButton = document.getElementById("searchButton");
 var text;
 // Save function
 function saveText() {
@@ -18,7 +19,7 @@ function saveText() {
   URL.revokeObjectURL(url);
 }
 // Save button
-saveButton.addEventListener("click", function() {
+saveButton.addEventListener('click', function() {
   saveText();
 });
 // Read button
@@ -50,5 +51,32 @@ document.addEventListener('keydown', (event) => {
   if (event.ctrlKey && event.key === 's') {
       event.preventDefault();
       saveText();
+  }
+});
+// Search function
+searchButton.addEventListener('click', function() {
+  // Put the words from the textarea in an array
+  var textareaValue = textarea.value;
+  var wordsArray = textareaValue.split(/\s+/);
+  console.log(wordsArray);
+  // Search
+  var searchFor = prompt('Search for:');
+  if (wordsArray.includes(searchFor)) {
+    console.log('Searched word found');
+    var regex = new RegExp('\\b' + searchFor + '\\b', 'gi');
+    var index = textarea.value.search(regex);
+    if (index !== -1) {
+      textarea.focus();
+      textarea.setSelectionRange(index, index + searchFor.length);
+    } else {
+      console.error(searchFor + ' wasn\'t found');
+      alert('Error: "' + searchFor + '" wasn\'t found');
+    }
+  } else {
+    // Error handling
+    if(searchFor!=null) {
+      console.error(searchFor + ' wasn\'t found');
+      alert('Error: "' + searchFor + '" wasn\'t found');
+    }
   }
 });
